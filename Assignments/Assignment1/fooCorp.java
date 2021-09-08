@@ -1,3 +1,6 @@
+package foocorp;
+import linkedlist.*;
+
 // Creating an exception for if the base pay is below 8
 class InvalidBasePayException extends Exception {
     public InvalidBasePayException(String msg) {
@@ -54,6 +57,7 @@ class Employee {
         return name;
     }
 }
+
 
 class FooCorporation {
     private linkedList employeesLinkedList = new linkedList(); // Creating the linked list to hold the base pay and //

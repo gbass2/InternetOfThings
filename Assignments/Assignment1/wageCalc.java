@@ -1,3 +1,5 @@
+import foocorp.*;
+
 import java.util.*;
 import java.io.*;
 
@@ -6,7 +8,7 @@ public class wageCalc {
         String file = args[0]; // Getting the file path for the employees file from CL args
         Scanner sc = null;
 
-        FooCorporation fooCorp = new fooCorporation();
+        FooCorporation fooCorp = new FooCorporation();
 
         // Opening the file
         try {
@@ -20,18 +22,18 @@ public class wageCalc {
             String s = sc.next();
             double basePay = 0;
             int hoursWorked = 0;
-            String name;
+            String name = "";
 
             if (s.contains("#")) { // Ignoring the comments in the file
                 sc.nextLine();
                 continue;
             }
-
-            basePay = Double.parseDouble(s);
             String s2 = sc.next();
-            hoursWorked = Integer.parseInt(s2);
-            s2 = sc.next();
             name = s2;
+            s2 = sc.next();
+            basePay = Double.parseDouble(s2);
+            s2 = sc.next();
+            hoursWorked = Integer.parseInt(s2);
 
             try {
                 fooCorp.totalPay(basePay, hoursWorked, name); // Both custom linked list and ArrayList resides in this
