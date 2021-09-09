@@ -9,8 +9,7 @@ class InvalidBasePayException extends Exception {
     }
 }
 
-// Creating an exception for if the hours worked are less than 0 or greater than
-// 60
+// Creating an exception for if the hours worked are less than 0 or greater than 60
 class InvalidHoursWorkedException extends Exception {
     public InvalidHoursWorkedException(String msg) {
         // Calling the constructor of parent Exception
@@ -18,50 +17,8 @@ class InvalidHoursWorkedException extends Exception {
     }
 }
 
-// Class to hold the attributes of an employee
-class Employee {
-    private int hoursWorked;
-    private double basePay;
-    private double totalPay;
-    private String name;
-
-    public void setHoursWorked(int hoursWorked) {
-        this.hoursWorked = hoursWorked;
-    }
-
-    public void setBasePay(double basePay) {
-        this.basePay = basePay;
-    }
-
-    public void setTotalPay(double totalPay) {
-        this.totalPay = totalPay;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getHoursWorked() {
-        return hoursWorked;
-    }
-
-    public double getBasePay() {
-        return basePay;
-    }
-
-    public double getTotalPay() {
-        return totalPay;
-    }
-
-    public String getName() {
-        return name;
-    }
-}
-
-
-class FooCorporation {
-    private linkedList employeesLinkedList = new linkedList(); // Creating the linked list to hold the base pay and //
-                                                               // hours worked
+public class FooCorporation {
+    private linkedList employeesLinkedList = new linkedList(); // Creating the linked list to hold the base pay and hours worked
 
     public void totalPay(double basePay, int hoursWorked, String name)
             throws InvalidHoursWorkedException, InvalidBasePayException {
@@ -79,17 +36,13 @@ class FooCorporation {
         int overTime = hoursWorked > 40 ? hoursWorked - 40 : 0;
 
         // Calculating total pay
-        totalPay = employee.hoursWorked > 40 ? employee.basePay * 40 + employee.basePay * 1.5 * overTime
+        double totalPay = hoursWorked > 40 ? basePay * 40 + basePay * 1.5 * overTime
                 : basePay * hoursWorked;
 
-        System.out.println(employee.getTotalPay);
+        System.out.println(totalPay);
 
         // Adding the employee's pay and hours worked to the linked List
-        Employee employee = new Employee();
-        employee.setName(name);
-        employee.setBasePay(basePay);
-        employee.setTotalPay(totalPay);
-        employee.setsetHoursWorked(hoursWorked);
+        Employee employee = new Employee(basePay, hoursWorked, name, totalPay);
         linkedList.insert(employeesLinkedList, employee);
         // Adding the employee's pay and hours worked to the ArrayList
     }

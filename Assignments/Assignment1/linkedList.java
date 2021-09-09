@@ -1,7 +1,7 @@
 package linkedlist;
 
-import employee.*;
 import java.io.*;
+import foocorp.Employee;
 
 // A Singly Linked List
 public class linkedList {
@@ -11,7 +11,7 @@ public class linkedList {
     // Linked list node
     static class Node {
 
-        Employee employee = new Employee();
+        Employee employee = new Employee(0.0,0, "", 0.0);
         Node next;
 
         Node(Employee employee) {
@@ -68,7 +68,7 @@ public class linkedList {
         // Node current will point to head
         Node current = list.head, index = null;
 
-        double temp;
+        Employee temp = new Employee(0.0,0, "", 0.0);
 
         if (list.head == null) {
             return;
@@ -82,7 +82,7 @@ public class linkedList {
                     // If current node's data is greater
                     // than index's node data, swap the data
                     // between them
-                    if (current.employee.getTotalPay() > index.getTotalPay()) {
+                    if (current.employee.getTotalPay() > index.employee.getTotalPay()) {
                         temp = current.employee;
                         current.employee = index.employee;
                         index.employee = temp;

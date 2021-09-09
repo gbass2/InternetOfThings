@@ -1,11 +1,18 @@
-package employee;
+package foocorp;
 
 // Class to hold the attributes of an employee
-class Employee {
+public class Employee {
     private int hoursWorked;
     private double basePay;
     private double totalPay;
     private String name;
+
+    public Employee(double basePay, int hoursWorked, String name, double totalPay) {
+        setBasePay(basePay);
+        setHoursWorked(hoursWorked);
+        setName(name);
+        setTotalPay(totalPay);
+    }
 
     public void setHoursWorked(int hoursWorked) {
         this.hoursWorked = hoursWorked;

@@ -1,9 +1,12 @@
+package wagecalc;
+
 import foocorp.*;
+import linkedlist.*;
 
 import java.util.*;
 import java.io.*;
 
-public class wageCalc {
+public class WageCalc {
     public static void main(String[] args) {
         String file = args[0]; // Getting the file path for the employees file from CL args
         Scanner sc = null;
@@ -23,26 +26,28 @@ public class wageCalc {
             double basePay = 0;
             int hoursWorked = 0;
             String name = "";
+            System.out.print(s);
 
             if (s.contains("#")) { // Ignoring the comments in the file
                 sc.nextLine();
                 continue;
             }
             String s2 = sc.next();
-            name = s2;
-            s2 = sc.next();
-            basePay = Double.parseDouble(s2);
-            s2 = sc.next();
-            hoursWorked = Integer.parseInt(s2);
+            // System.out.print(s2);
+            // name = s2;
+            // s2 = sc.next();
+            // basePay = Double.parseDouble(s2);
+            // s2 = sc.next();
+            // hoursWorked = Integer.parseInt(s2);
 
-            try {
-                fooCorp.totalPay(basePay, hoursWorked, name); // Both custom linked list and ArrayList resides in this
-                                                              // class
-            } catch (InvalidBasePayException e1) {
-                System.out.println(e1);
-            } catch (InvalidHoursWorkedException e2) {
-                System.out.println(e2);
-            }
+            // try {
+            //     fooCorp.totalPay(basePay, hoursWorked, name); // Both custom linked list and ArrayList resides in this
+            //                                                   // class
+            // } catch (InvalidBasePayException e1) {
+            //     System.out.println(e1);
+            // } catch (InvalidHoursWorkedException e2) {
+            //     System.out.println(e2);
+            // }
         }
         sc.close();
 
