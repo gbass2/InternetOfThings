@@ -1,24 +1,11 @@
 package foocorp;
+
+import java.util.*;
 import linkedlist.*;
 
-// Creating an exception for if the base pay is below 8
-class InvalidBasePayException extends Exception {
-    public InvalidBasePayException(String msg) {
-        // Calling the constructor of parent Exception
-        super(msg);
-    }
-}
-
-// Creating an exception for if the hours worked are less than 0 or greater than 60
-class InvalidHoursWorkedException extends Exception {
-    public InvalidHoursWorkedException(String msg) {
-        // Calling the constructor of parent Exception
-        super(msg);
-    }
-}
-
 public class FooCorporation {
-    private linkedList employeesLinkedList = new linkedList(); // Creating the linked list to hold the base pay and hours worked
+    private linkedList employeesLinkedList = new linkedList(); // Linked list to hold the employees
+    private ArrayList<Employee> employeesArray = new ArrayList<Employee>(); // Array to hold the employees
 
     public void totalPay(double basePay, int hoursWorked, String name)
             throws InvalidHoursWorkedException, InvalidBasePayException {
@@ -44,10 +31,22 @@ public class FooCorporation {
         // Adding the employee's pay and hours worked to the linked List
         Employee employee = new Employee(basePay, hoursWorked, name, totalPay);
         linkedList.insert(employeesLinkedList, employee);
+
         // Adding the employee's pay and hours worked to the ArrayList
+        employeesArray.add(employee);
     }
 
-    public linkedList getEmployeesLinkedList() {
-        return employeesLinkedList;
+    // Sorting the linked list by total pay
+    public void sortEmployeesLinkedList() {
+        linkedList.sortList(employeesLinkedList);
+        linkedList.printList(employeesLinkedList);
+    }
+
+    // Sorting the array by total pay
+    public void sortEmployeesArray() {
+        Collections.sort(employeesArray);
+
+        for(Employee e: employeesArray)
+            System.out.println(e.getTotalPay());
     }
 }

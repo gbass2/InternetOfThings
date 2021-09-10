@@ -55,13 +55,13 @@ public class linkedList {
             System.out.print("LinkedList: ");
 
             // Print the data at current node
-            System.out.print("Name: " + currNode.employee.getName() + " Base Pay: " + currNode.employee.getBasePay()
-                    + " Hours Worked: " + currNode.employee.getHoursWorked() + " Total Pay: "
+            System.out.print("Name: " + currNode.employee.getName() + " Total Pay: "
                     + currNode.employee.getTotalPay() + "\n");
 
             // Go to next node
             currNode = currNode.next;
         }
+        System.out.println();
     }
 
     public static void sortList(linkedList list) {
