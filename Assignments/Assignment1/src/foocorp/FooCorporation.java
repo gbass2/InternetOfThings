@@ -26,7 +26,7 @@ public class FooCorporation {
         double totalPay = hoursWorked > 40 ? basePay * 40 + basePay * 1.5 * overTime
                 : basePay * hoursWorked;
 
-        System.out.println("Total Pay: " + totalPay);
+        System.out.println("Total Pay for " + name + ": " + totalPay);
 
         // Adding the employee's pay and hours worked to the linked List
         Employee employee = new Employee(basePay, hoursWorked, name, totalPay);

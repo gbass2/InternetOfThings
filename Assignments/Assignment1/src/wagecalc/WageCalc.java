@@ -11,8 +11,8 @@ public class WageCalc {
         String file = args[0]; // Getting the file path for the employees file from CL args
         Scanner sc = null;
 
-        FooCorporation fooCorp = new FooCorporation();
-
+        FooCorporation fooCorp = new FooCorporation(); // Both custom linked list and ArrayList resides in this class
+        
         // Opening the file
         sc = new Scanner(new File(file));
 
@@ -20,7 +20,8 @@ public class WageCalc {
         while (sc.hasNext()) {
             String s = sc.next();
 
-            if (s.contains("#")) { // Ignoring the comments in the file
+            // Ignoring the comments in the file
+            if (s.contains("#")) { 
                 sc.nextLine();
                 continue;
             }
@@ -31,8 +32,9 @@ public class WageCalc {
             s = sc.next();
             int hoursWorked = Integer.parseInt(s);
 
+            // Calculating the total pay and adding employee to linked list and array list
             try {
-                fooCorp.totalPay(basePay, hoursWorked, name); // Both custom linked list and ArrayList resides in this class
+                fooCorp.totalPay(basePay, hoursWorked, name);
             } catch (InvalidBasePayException e1) {
                 System.out.println(e1);
             } catch (InvalidHoursWorkedException e2) {
@@ -41,8 +43,12 @@ public class WageCalc {
         }
         sc.close();
 
-        // Sorting the lists
+        // Sorting the linked list
+        System.out.println("\nSorting the linked list");
         fooCorp.sortEmployeesLinkedList();
+        
+        // Sorting the array list
+        System.out.println("Sorting the Array List");
         fooCorp.sortEmployeesArray();
 
     }
