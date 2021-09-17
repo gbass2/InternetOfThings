@@ -8,7 +8,7 @@ import java.io.*;
 
 public class WageCalc {
     public static void main(String[] args) throws IOException {
-        String file = args[0]; // Getting the file path for the employees file from CL args
+        String file = "employees.txt"; 
         Scanner sc = null;
 
         FooCorporation fooCorp = new FooCorporation(); // Both custom linked list and ArrayList resides in this class
@@ -44,11 +44,11 @@ public class WageCalc {
         sc.close();
 
         // Sorting the linked list
-        System.out.println("\nSorting the linked list");
+        System.out.println("\nSorted the linked list");
         fooCorp.sortEmployeesLinkedList();
         
         // Sorting the array list
-        System.out.println("Sorting the Array List");
+        System.out.println("Sorted the Array List");
         fooCorp.sortEmployeesArray();
 
     }

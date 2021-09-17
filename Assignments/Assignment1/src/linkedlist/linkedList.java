@@ -1,6 +1,5 @@
 package linkedlist;
 
-import java.io.*;
 import foocorp.Employee;
 
 // A Singly Linked List
@@ -48,10 +47,8 @@ public class linkedList {
         Node currNode = list.head;
 
         while (currNode != null) {
-            System.out.print("LinkedList: ");
-
-            System.out.print("Name: " + currNode.employee.getName() + " Total Pay: "
-                    + currNode.employee.getTotalPay() + "\n");
+        	
+            System.out.print(currNode.employee.getName() + "'s Total Pay: " + currNode.employee.getTotalPay() + "\n");
 
             currNode = currNode.next;
         }

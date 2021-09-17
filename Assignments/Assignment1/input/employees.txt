@@ -1,6 +1,0 @@
-#   Name  Base Pay Hours Worked
-    
-    Jim      8          40
-    Joe      15         40
-    Rick     60	60
-    Dale     20         49

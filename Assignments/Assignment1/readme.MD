@@ -1,2 +1,3 @@
+# Internet of Things Assignment 1
 
-# To run the program enter the following command in command line:
+Run the program in eclipse

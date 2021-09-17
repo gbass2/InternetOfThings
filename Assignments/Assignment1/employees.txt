@@ -1,0 +1,8 @@
+#   Name  Base Hourly Pay Hours Worked
+    
+    Jim         8          40
+    Joe         15         40
+    Tim         20         61
+    Rick        60	       60
+    Dale        20         49
+    Terry       7          32
