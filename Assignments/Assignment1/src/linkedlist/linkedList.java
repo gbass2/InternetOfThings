@@ -1,4 +1,6 @@
-import java.io.*;
+package linkedlist;
+
+import foocorp.Employee;
 
 // A Singly Linked List
 public class linkedList {
@@ -8,7 +10,7 @@ public class linkedList {
     // Linked list node
     static class Node {
 
-        Employee employee = new Employee();
+        Employee employee = new Employee(0.0,0, "", 0.0);
         Node next;
 
         Node(Employee employee) {
@@ -19,17 +21,14 @@ public class linkedList {
 
     // Method to insert a new node
     public static linkedList insert(linkedList list, Employee employee) {
-        // Create a new node with given data
-        Node new_node = new Node(employee);
+
+    	Node new_node = new Node(employee);
         new_node.next = null;
 
-        // If the Linked List is empty,
-        // then make the new node as head
         if (list.head == null) {
             list.head = new_node;
         } else {
-            // Else traverse till the last node
-            // and insert the new_node there
+
             Node last = list.head;
             while (last.next != null) {
                 last = last.next;
@@ -47,39 +46,32 @@ public class linkedList {
     public static void printList(linkedList list) {
         Node currNode = list.head;
 
-        // Traverse through the LinkedList
         while (currNode != null) {
-            System.out.print("LinkedList: ");
+        	
+            System.out.print(currNode.employee.getName() + "'s Total Pay: " + currNode.employee.getTotalPay() + "\n");
 
-            // Print the data at current node
-            System.out.print("Name: " + currNode.employee.getName() + " Base Pay: " + currNode.employee.getBasePay()
-                    + " Hours Worked: " + currNode.employee.getHoursWorked() + " Total Pay: "
-                    + currNode.employee.getTotalPay() + "\n");
-
-            // Go to next node
             currNode = currNode.next;
         }
+        System.out.println();
     }
 
     public static void sortList(linkedList list) {
-        // Node current will point to head
+        
+    	// Node current will point to head
         Node current = list.head, index = null;
 
-        double temp;
+        Employee temp = new Employee(0.0,0, "", 0.0);
 
         if (list.head == null) {
             return;
         } else {
             while (current != null) {
-                // Node index will point to node next to
-                // current
+                // Node index will point to node next to current
                 index = current.next;
 
                 while (index != null) {
-                    // If current node's data is greater
-                    // than index's node data, swap the data
-                    // between them
-                    if (current.employee.getTotalPay() > index.getTotalPay()) {
+                    // If current node's data is greater than index's node data, swap the data between them
+                    if (current.employee.getTotalPay() > index.employee.getTotalPay()) {
                         temp = current.employee;
                         current.employee = index.employee;
                         index.employee = temp;
