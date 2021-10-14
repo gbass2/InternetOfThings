@@ -80,13 +80,13 @@ public class Simulation implements Runnable {
 //        System.out.println("Shortest path length is: " + dist[dest]);
  
         // Print path
-        for (int i = path.size() - 2; i >= 0; i--) {
+        for (int i = path.size() - 1; i >= 0; i--) {
 //            System.out.print(citiesStr.get(path.get(i)) + " ");
             // Creating an array that holds the first entry to the travel history database
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(new java.util.Date().getTime());
 			ArrayList<Object> activity = new ArrayList<Object>(Arrays.asList(sqlDate, "Arrived in " + citiesStr.get(path.get(i))));
 			query.writeTravelHistory(trackingNumber, activity);
-//			Thread.sleep(10000);
+			Thread.sleep(10000);
         }
     }
  
@@ -186,12 +186,22 @@ public class Simulation implements Runnable {
 	@Override
 	public void run() {		
 		try {
+			// Randomizing the start of simulation
+			Calendar currTime = Calendar.getInstance(); // Current time
+			Calendar executeTime = Calendar.getInstance(); // Time to execute shipment
+			int rand = (int) (Math.random() * 10); // Random seconds between 0 - 10
+			executeTime.add(Calendar.SECOND, rand); // Adding the random time to the current time
+						
+			while(currTime.compareTo(executeTime) == -1) {
+				currTime.add(Calendar.SECOND, 1);
+				Thread.sleep(1000);
+			}
+			
 			// Connecting to the database
 			query = new Fedex("Read ShipmentFacts", trackingNumber);
 			query.connectDataBase();
 			// Simulating the package through the cities
 			simShipment();
-			// Disconnecting from the database
 			
 		} catch(SQLException e1) {
 			System.out.println(e1);

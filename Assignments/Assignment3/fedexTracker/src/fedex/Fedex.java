@@ -1,13 +1,8 @@
 package fedex;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.*;
+import java.sql.*;
 
 // Connection to the bikes mysql database
 public class Fedex implements Runnable {
@@ -129,7 +124,7 @@ public class Fedex implements Runnable {
     	String file = "packages.csv";
 		Scanner sc = new Scanner(new File(file));
 		sc.useDelimiter(";");   //sets the delimiter pattern 
-		
+
 		// Reading the packages from a csv
 		 while (sc.hasNext()) {
 				ArrayList<Object> input = new ArrayList<Object>();
@@ -144,14 +139,11 @@ public class Fedex implements Runnable {
 	            	s = s.replaceAll("\n","");
 	            	input.add(s);
 	            }
-	            
-	            // Creating an array that holds the first entry to the travel history database
-	            java.sql.Timestamp sqlDate = new java.sql.Timestamp(new java.util.Date().getTime());
-    			ArrayList<Object> activity = new ArrayList<Object>(Arrays.asList(sqlDate, "Package recieved by FedEX in " + input.get(7)));
     			
 	            // Adding the packages to the database
 	    		writeShipmentFacts(trackingNumber, input);
-	    		writeTravelHistory(trackingNumber, activity);
+	    		System.out.println("The tracking number for the package is: " + trackingNumber);
+	    		
 	    		// Simulating the package through the cities
 	    		Simulation sim = new Simulation("Sim",trackingNumber);
 	        }
