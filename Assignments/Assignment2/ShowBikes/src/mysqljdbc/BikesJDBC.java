@@ -108,6 +108,20 @@ public class BikesJDBC {
 	  	 	preparedStatement.setObject(9, config.get(9));
 	  	 	preparedStatement.setObject(10, config.get(9)); 
      }
+       if(config.size() == 12 || config.size() == 13) {
+	   		preparedStatement.setObject(1, config.get(1));
+	   		preparedStatement.setObject(2, config.get(1));
+	  	 	preparedStatement.setObject(3, config.get(3));
+	  	 	preparedStatement.setObject(4, config.get(3));
+	  	 	preparedStatement.setObject(5, config.get(5));
+	  	 	preparedStatement.setObject(6, config.get(5));
+	  	 	preparedStatement.setObject(7, config.get(7));
+	  	 	preparedStatement.setObject(8, config.get(7)); 	
+	  	 	preparedStatement.setObject(9, config.get(9));
+	  	 	preparedStatement.setObject(10, config.get(9)); 
+	  	 	preparedStatement.setObject(11, config.get(11)); 
+	  	 	preparedStatement.setObject(12, config.get(11)); 
+     }
            
  	   // Receiving the bikes that match the parameters
        System.out.println("Querying the database");
@@ -144,9 +158,10 @@ public class BikesJDBC {
 	           }
 	       };
 	       Collections.sort(results, myComparator);
+	       System.out.println("\nSorting the results");
        }
 	   
-       System.out.println("Printing and sorting the results");
+       System.out.println("\nPrinting the results");
        for(int i = 0; i < results.size(); i++) {
            System.out.println(results.get(i));
        }
