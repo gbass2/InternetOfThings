@@ -1,9 +1,11 @@
 package fedex;
 
 import java.util.*; 
-import java.lang.*;
-import java.sql.SQLException;
-import java.io.*; 
+import java.sql.SQLException; 
+
+/**
+* Method to simulate the shipping of a package
+*/
 
 public class Simulation implements Runnable {
 	private HashMap<String,Integer> citiesInt = new HashMap<String,Integer>(); // Converts the city,state to an integer
@@ -45,25 +47,33 @@ public class Simulation implements Runnable {
 	
 	}
 	
-    // function to form edge between two vertices
-    // source and dest
+	/**
+	* Method to form an edge between two vertices.
+	* @param adj List that holds the graph.
+	* @param i source vertex.
+	* @param j destination vertex.
+	*/
+    //
     private void addEdge(ArrayList<ArrayList<Integer>> adj, int i, int j) {
         adj.get(i).add(j);
         adj.get(j).add(i);
     }
  
-    // function to print the shortest distance and path
-    // between source vertex and destination vertex
+	/**
+	* Method to find the shortest path between source vertex and destination vertex.
+	* @param adj List that holds the graph.
+	* @param s source vertex.
+	* @param dest destination vertex.
+	*/
+
     private void shortestPath(ArrayList<ArrayList<Integer>> adj, int s, int dest) throws InterruptedException, SQLException{
-        // predecessor[i] array stores predecessor of
-        // i and distance array stores distance of i
-        // from s
+        // Predecessor[i] array stores predecessor of i
+    	// Distance array stores distance of i from s
         int pred[] = new int[num_Vertices];
         int dist[] = new int[num_Vertices];
  
         if (BFS(adj, s, dest, num_Vertices, pred, dist) == false) {
-            System.out.println("Given source and destination" +
-                                         "are not connected");
+            System.out.println("Given source and destination are not connected");
             return;
         }
  
@@ -90,9 +100,16 @@ public class Simulation implements Runnable {
         }
     }
  
-    // a modified version of BFS that stores predecessor
-    // of each vertex in array pred
-    // and its distance from source in array dist
+	/**
+	* Helper method for shortestPath. Calculates the breadth first search shortest path.
+	* @param adj List that holds the graph.
+	* @param src Source vertex
+	* @param dest Destination vertex.
+	* @param v Number of vertices
+	* @param pred Stores predecessor of i
+	* @param dist Stores distance of i from src
+	* @return Returns a boolean value on whether the src and dest are connected
+	*/
     private boolean BFS(ArrayList<ArrayList<Integer>> adj, int src, int dest, int v, int pred[], int dist[]) {
         // a queue to maintain queue of vertices whose
         // adjacency list is to be scanned as per normal
@@ -141,13 +158,13 @@ public class Simulation implements Runnable {
     }
     
 	/**
-	    * Simulates the shipment through each city from source to destination addresses.
+	    * Simulates the shipment through each city in the path from source to destination addresses.
 	*/
 	public void simShipment() throws SQLException, InterruptedException {
 		// Querying the database for the source and destination address of the current package
 		ArrayList<String> packet = query.readShipmentFacts();
 		
-        ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>(num_Vertices);
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>(num_Vertices); // Graph to hold the nodes
         
         for (int i = 0; i < num_Vertices; i++) {
         	adj.add(new ArrayList<Integer>());

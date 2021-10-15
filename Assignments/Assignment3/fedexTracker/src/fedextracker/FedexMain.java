@@ -39,6 +39,7 @@ public class FedexMain {
 					// Clearing the packages from the database
 					Fedex clear = new Fedex("Clear DataBase", ""); // Comment if you don't want to clear database
 					System.out.println("\nExiting and clearing the database");
+					Thread.interrupted();
 					break;
 			}
 		} while (b == true);

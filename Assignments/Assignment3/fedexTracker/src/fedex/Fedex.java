@@ -4,7 +4,9 @@ import java.io.*;
 import java.util.*;
 import java.sql.*;
 
-// Connection to the bikes mysql database
+/**
+* Method to interact to the mysql database.
+*/
 public class Fedex implements Runnable {
     private Connection connection = null;
     private Statement stmt = null;
@@ -39,7 +41,7 @@ public class Fedex implements Runnable {
     }
 
     /**
-    * Method to query the travel history of a package from the database
+    * Method to query the travel history of a package from the database.
     */
     public void readTravelHistory() throws SQLException {
     	
@@ -75,7 +77,8 @@ public class Fedex implements Runnable {
     }
     
     /**
-    * Method to query the shipment facts of a package from the database
+    * Method to query the shipment facts of a package from the database.
+    * @return Returns the package and shipping information for the queried package
     */
      public ArrayList<String> readShipmentFacts() throws SQLException {
      	
@@ -152,7 +155,8 @@ public class Fedex implements Runnable {
     
     /**
     * Method to write the shipment facts to the FEDEX mysql database.
-    * @param list Holds all the information about the shipment
+    * @param shipmentList Holds all the information about the shipment.
+    * @param trackingNumber Tracking number for the package.
     */
 	public void writeShipmentFacts(String trackingNumber, ArrayList<Object> shipmentList) throws SQLException {
 	        if (connection == null)
@@ -177,7 +181,8 @@ public class Fedex implements Runnable {
 	
     /**
     * Method to write the travel history of a package to the FEDEX mysql database.
-    * @param packageList Holds the activity of a package
+    * @param packageList Holds the activity of a package.
+    * @param trackingNumber Tracking number for the package.
     */
 	public void writeTravelHistory(String trackingNumber, ArrayList<Object> travelHistory) throws SQLException {
 	        if (connection == null)
