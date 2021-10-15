@@ -43,8 +43,6 @@ public class Simulation implements Runnable {
 		citiesStr.put(16, "Dallas, TX"); citiesStr.put(17, "Houston, TX"); citiesStr.put(18, "Denver, CO"); citiesStr.put(19,"Salt Lake City, UT");
 		citiesStr.put(20,"Phoenix, AZ"); citiesStr.put(21, "Los Angeles, CA"); citiesStr.put(22, "Chino, CA");citiesStr.put(23,"Sacramento, CA");
 		citiesStr.put(24, "Seattle, WA");
-		
-	
 	}
 	
 	/**
