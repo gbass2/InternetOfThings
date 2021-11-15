@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 12, 2021 at 09:08 AM
--- Server version: 10.4.16-MariaDB
--- PHP Version: 7.4.12
+-- Generation Time: Nov 15, 2021 at 06:14 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -84,8 +84,8 @@ CREATE TABLE `garage` (
 --
 
 INSERT INTO `garage` (`id`, `garageID`, `doorStatus`, `lockStatus`, `doorNo`, `houseID`) VALUES
-(1, 1, '1', 1, 1, 1),
-(2, 2, '0', 0, 2, 1);
+(1, 1, 'Closed', 1, 1, 1),
+(2, 2, 'Closed', 0, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -95,15 +95,16 @@ INSERT INTO `garage` (`id`, `garageID`, `doorStatus`, `lockStatus`, `doorNo`, `h
 
 CREATE TABLE `housestatus` (
   `houseID` int(255) NOT NULL,
-  `securityStatus` varchar(200) NOT NULL
+  `securityStatus` varchar(200) NOT NULL,
+  `alarmStatus` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `housestatus`
 --
 
-INSERT INTO `housestatus` (`houseID`, `securityStatus`) VALUES
-(1, 'Unarmed');
+INSERT INTO `housestatus` (`houseID`, `securityStatus`, `alarmStatus`) VALUES
+(1, 'Armed Away', 0);
 
 -- --------------------------------------------------------
 
@@ -124,10 +125,10 @@ CREATE TABLE `lightdetails` (
 --
 
 INSERT INTO `lightdetails` (`lightID`, `houseID`, `floorID`, `access`, `status`) VALUES
-(1, 1, 1, 1, 1),
+(1, 1, 1, 0, 1),
 (2, 1, 1, 0, 3),
-(3, 1, 2, 0, 4),
-(4, 1, 2, 1, 2);
+(3, 1, 2, 0, 1),
+(4, 1, 2, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -139,8 +140,17 @@ CREATE TABLE `motiondetector` (
   `detectorID` int(255) NOT NULL,
   `houseID` int(255) NOT NULL,
   `floorID` int(255) NOT NULL,
-  `status` tinyint(1) NOT NULL
+  `status` tinyint(1) NOT NULL,
+  `Active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `motiondetector`
+--
+
+INSERT INTO `motiondetector` (`detectorID`, `houseID`, `floorID`, `status`, `Active`) VALUES
+(1, 1, 1, 1, 1),
+(2, 1, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -152,8 +162,19 @@ CREATE TABLE `sensor` (
   `sensorID` int(255) NOT NULL,
   `houseID` int(255) NOT NULL,
   `floorID` int(255) NOT NULL,
-  `status` tinyint(1) NOT NULL
+  `status` tinyint(1) NOT NULL,
+  `Active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sensor`
+--
+
+INSERT INTO `sensor` (`sensorID`, `houseID`, `floorID`, `status`, `Active`) VALUES
+(1, 1, 1, 1, 0),
+(2, 1, 1, 1, 0),
+(3, 1, 2, 1, 0),
+(4, 1, 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -180,7 +201,7 @@ CREATE TABLE `thermoschedule` (
 
 INSERT INTO `thermoschedule` (`ID`, `houseID`, `floorID`, `tmodetf`, `tfan`, `tcurrent`, `tcontrol`, `startTime`, `endTime`, `status`) VALUES
 (1, 1, 1, 'Off', 'Off', 68, 68, 0, 0, 0),
-(2, 1, 2, 'Cool', 'Auto', 74, 74, 0, 0, 0);
+(2, 1, 2, 'Off', 'Off', 73, 73, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -205,7 +226,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `phone`, `address`, `userid`, `houseID`) VALUES
-(1, '', 'gbass2', '$2y$10$kdD.hTh5gq4RmXK1jwkCrOTy7DQuBu.D6S0FhJHVMfItCDSXZho0K', 'bassgrayson@aol.com', 7047753921, 28213, 'admin1', 1);
+(1, '', 'user', '$2y$10$poEU4VCwRjCCWk0A42UrY.UUi.xNEMI7eTwSA2FVirXExOHOyu3U6', 'bassgrayson@aol.com', 7047753921, 28265, 'admin1', 1);
 
 --
 -- Indexes for dumped tables
@@ -297,13 +318,13 @@ ALTER TABLE `lightdetails`
 -- AUTO_INCREMENT for table `motiondetector`
 --
 ALTER TABLE `motiondetector`
-  MODIFY `detectorID` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `detectorID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sensor`
 --
 ALTER TABLE `sensor`
-  MODIFY `sensorID` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `sensorID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `thermoschedule`
