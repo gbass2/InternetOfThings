@@ -4,7 +4,6 @@ import time
 import os
 
 chunk_size=1024
-# file_size= 52428800
 file_size = 5242880
 
 
@@ -17,9 +16,8 @@ while 1:
 
     r1=requests.get(url1,stream=True)
 
-
     print(r1.text)
-    if (r1.text == "True"):
+    if (r1.text == "True" or alarm == "1"):
 
     # Append timestamp to file name
         with open(f"{t}.mp4","ab") as f:
