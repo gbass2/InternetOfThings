@@ -3,8 +3,7 @@
 $servername= "localhost";
 $username="android";
 $dbname="userdatabase";
-// $password="fzAbgzqqHruD4V5H";
-$password="v.cdZ]2LD9!bC8Fz";
+$password="fzAbgzqqHruD4V5H";
 // Create connection
 $conn = mysqli_connect($servername,$username,$password,$dbname);
 // check connection
