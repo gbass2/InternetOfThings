@@ -38,6 +38,10 @@ def threaded(c):
             update_light(data_list[1],data_list[2],data_list[3],data_list[4],data_list[5])
         if 'updateFanMode' in data_list:
             update_fan(data_list[1],data_list[2],data_list[3])
+        if 'updateMode' in data_list:
+            update_mode(data_list[1],data_list[2],data_list[3])
+        if 'updateControlTemp' in data_list:
+            update_temperature(data_list[1],data_list[2],data_list[3])
 
 
     # connection closed
