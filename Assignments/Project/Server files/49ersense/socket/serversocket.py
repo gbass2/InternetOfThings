@@ -2,9 +2,6 @@
 import socket
 import os
 import sys
-import requests
-
-from simulations.simulations import *
 
 # import thread module
 from _thread import *
@@ -15,7 +12,6 @@ print_lock = threading.Lock()
 # thread function
 def threaded(c):
     while True:
-
         # data received from client
         data = c.recv(1024)
         if not data:
@@ -30,38 +26,46 @@ def threaded(c):
         data_list = data.split(',')
         print(data_list)
 
-        # updating the database
-        if 'updateGarage' in data_list:
-            update_garage(data_list[1],data_list[3],data_list[2])
-        if 'updateHouse' in data_list:
-            update_house(data_list[1],data_list[2])
-        if 'updateLight' in data_list:
-            update_light(data_list[1],data_list[2],data_list[3],data_list[4],data_list[5])
-        if 'updateFanMode' in data_list:
-            update_fan(data_list[1],data_list[2],data_list[3])
-        if 'updateMode' in data_list:
-            update_mode(data_list[1],data_list[2],data_list[3])
-        if 'updateControlTemp' in data_list:
-            update_temperature(data_list[1],data_list[2],data_list[3])
-
+        # forward data to the pi
+        if 'updateGarage' or 'updateHouse' in data_list:
+            client("192.168.2.31",12312,data)
+        else:
+            if data_list[2] == '1':
+                print('pi1')
+                # call floor 1
+                client("192.168.2.31",12312,data)
+            if data_list[2] == '2':
+                # call floor 2
+                client("192.168.2.32",12313,data)
+                
 
     # connection closed
     c.close()
 
-def wait_for_network():
-    while True:
-        try:
-            r = requests.head(url='http://google.com/',timeout=3)
-            return
-        except requests.ConnectionError as e:
-            pass
+def client(host_ip, port, data):
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print ("Socket successfully created")
+    except socket.error as err:
+        print ("socket creation failed with error %s" %(err))
+ 
+    # connecting to the pi
+    s.connect((host_ip, port))
+    
+    # sending the data to the pi
+    s.send(data.encode('UTF-8'))
+    
+    s.close()
+    
+    
 
 def Main():
-    host = "192.168.2.31"
-    port = 12312
-    
-    wait_for_network()
-        
+    host = "192.168.2.30"
+
+    # reverse a port on your computer
+    # in our case it is 12345 but it
+    # can be anything
+    port = 10000
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((host, port))
     print("socket binded to port", port)

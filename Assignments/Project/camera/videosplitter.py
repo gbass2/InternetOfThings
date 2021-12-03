@@ -7,8 +7,8 @@ chunk_size=1024
 file_size= 5242880
 
 
-url="http://127.0.0.1:8000/video_feed"
-url1="http://127.0.0.1:8000/motion_detect"
+url="http://192.168.2.8:8000/video_feed"
+url1="http://192.168.2.8:8000/motion_detect"
 while 1:
     # Create timestamp
     t = datetime.now().strftime("%Y-%b-%Y-%H:%M:%S")

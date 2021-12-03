@@ -18,9 +18,10 @@ $query = "SELECT
         t1.doorID
         SEPARATOR ',')
         AS 'doors'
-    	  FROM
+    	FROM
         userdatabase.dooractuator
-				AS t1";
+	AS t1
+	WHERE t1.houseID={$houseID}";
 
 $result=mysqli_query($conn,$query);
 $locks = "";
@@ -40,7 +41,8 @@ $query = "SELECT
         AS 'garage'
     	  FROM
         userdatabase.garage
-				AS t1";
+	AS t1
+	WHERE t1.houseID={$houseID}";
 
 $result=mysqli_query($conn,$query);
 $garage = "";
@@ -58,9 +60,10 @@ $query = "SELECT
         t1.floorID
         SEPARATOR ',')
         AS 'floors'
-    	  FROM
+    	FROM
         userdatabase.floors
-				AS t1";
+	AS t1
+	WHERE t1.houseID={$houseID}";
 
 $result=mysqli_query($conn,$query);
 $floors = "";
@@ -79,9 +82,9 @@ $result=mysqli_query($conn,$query);
 $numFloors = mysqli_num_rows($result);
 
 if(!empty($garage) && !empty($locks)&& !empty($floors)){
-		echo "{$houseID},{$securityStatus},{$locks},{$numGarage},{$numFloors},{$garage},{$floors}";
+    echo "{$houseID},{$securityStatus},{$locks},{$numGarage},{$numFloors},{$garage},{$floors}";
 }else{
-		echo "0";
+    echo "0";
 }
 
 ?>

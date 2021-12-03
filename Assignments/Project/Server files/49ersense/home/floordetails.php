@@ -24,8 +24,8 @@ $query = "SELECT
     		AS t1
     		INNER JOIN userdatabase.lightdetails
     		AS t2
-    		ON t1.floorID = t2.floorID
-      	WHERE t1.floorID = {$floorID}
+    		ON (t1.houseID = t2.houseID AND t1.floorID = t2.floorID)
+      	WHERE t1.houseID = {$houseID} AND t1.floorID = {$floorID}
       	GROUP BY
         		t1.houseID,
         		t1.tmodetf,
