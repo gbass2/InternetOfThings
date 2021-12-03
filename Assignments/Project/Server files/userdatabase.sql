@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 15, 2021 at 06:39 AM
--- Server version: 10.4.16-MariaDB
--- PHP Version: 7.4.12
+-- Generation Time: Dec 03, 2021 at 04:57 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `dooractuator` (
+  `id` int(255) NOT NULL,
   `doorID` int(255) NOT NULL,
   `houseID` int(255) NOT NULL,
   `floorID` int(255) NOT NULL,
@@ -38,10 +39,10 @@ CREATE TABLE `dooractuator` (
 -- Dumping data for table `dooractuator`
 --
 
-INSERT INTO `dooractuator` (`doorID`, `houseID`, `floorID`, `status`) VALUES
-(1, 1, 1, 0),
-(2, 1, 1, 0),
-(3, 1, 1, 0);
+INSERT INTO `dooractuator` (`id`, `doorID`, `houseID`, `floorID`, `status`) VALUES
+(1, 1, 1, 1, 1),
+(2, 2, 1, 1, 0),
+(3, 3, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -84,8 +85,8 @@ CREATE TABLE `garage` (
 --
 
 INSERT INTO `garage` (`id`, `garageID`, `doorStatus`, `lockStatus`, `doorNo`, `houseID`) VALUES
-(1, 1, '1', 1, 1, 1),
-(2, 2, '0', 0, 2, 1);
+(1, 1, 'Closed', 1, 1, 1),
+(2, 2, 'Closed', 0, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -112,6 +113,7 @@ INSERT INTO `housestatus` (`houseID`, `securityStatus`) VALUES
 --
 
 CREATE TABLE `lightdetails` (
+  `id` int(255) NOT NULL,
   `lightID` int(255) NOT NULL,
   `houseID` int(255) NOT NULL,
   `floorID` int(255) NOT NULL,
@@ -123,11 +125,11 @@ CREATE TABLE `lightdetails` (
 -- Dumping data for table `lightdetails`
 --
 
-INSERT INTO `lightdetails` (`lightID`, `houseID`, `floorID`, `access`, `status`) VALUES
-(1, 1, 1, 1, 1),
-(2, 1, 1, 0, 3),
-(3, 1, 2, 0, 4),
-(4, 1, 2, 1, 2);
+INSERT INTO `lightdetails` (`id`, `lightID`, `houseID`, `floorID`, `access`, `status`) VALUES
+(1, 1, 1, 1, 0, 1),
+(2, 2, 1, 1, 0, 1),
+(3, 3, 1, 2, 0, 1),
+(4, 4, 1, 2, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -179,8 +181,8 @@ CREATE TABLE `thermoschedule` (
 --
 
 INSERT INTO `thermoschedule` (`ID`, `houseID`, `floorID`, `tmodetf`, `tfan`, `tcurrent`, `tcontrol`, `startTime`, `endTime`, `status`) VALUES
-(1, 1, 1, 'Off', 'Off', 68, 68, 0, 0, 0),
-(2, 1, 2, 'Cool', 'Auto', 74, 74, 0, 0, 0);
+(1, 1, 1, 'Off', 'Off', 66, 66, 0, 0, 0),
+(2, 1, 2, 'Off', 'Off', 68, 68, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -189,7 +191,6 @@ INSERT INTO `thermoschedule` (`ID`, `houseID`, `floorID`, `tmodetf`, `tfan`, `tc
 --
 
 CREATE TABLE `users` (
-  `id` int(255) NOT NULL,
   `name` varchar(50) NOT NULL,
   `username` varchar(45) NOT NULL,
   `password` mediumtext NOT NULL,
@@ -204,8 +205,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `phone`, `address`, `userid`, `houseID`) VALUES
-(1, '', 'gbass2', '$2y$10$kdD.hTh5gq4RmXK1jwkCrOTy7DQuBu.D6S0FhJHVMfItCDSXZho0K', 'bassgrayson@aol.com', 7047753921, 28213, 'admin1', 1);
+INSERT INTO `users` (`name`, `username`, `password`, `email`, `phone`, `address`, `userid`, `houseID`) VALUES
+('', 'test', '$2y$10$tMcZ9Tc6vF5sumlU.RANYuhSW1wvTxHnzW692S4odp2X8oqYMOGCO', 'bassgrayson@aol.com', 7047753921, 28213, 'admin1', 1);
 
 --
 -- Indexes for dumped tables
@@ -215,7 +216,7 @@ INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `phone`, `ad
 -- Indexes for table `dooractuator`
 --
 ALTER TABLE `dooractuator`
-  ADD PRIMARY KEY (`doorID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `floors`
@@ -239,7 +240,7 @@ ALTER TABLE `housestatus`
 -- Indexes for table `lightdetails`
 --
 ALTER TABLE `lightdetails`
-  ADD PRIMARY KEY (`lightID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `motiondetector`
@@ -263,7 +264,7 @@ ALTER TABLE `thermoschedule`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`houseID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -273,25 +274,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dooractuator`
 --
 ALTER TABLE `dooractuator`
-  MODIFY `doorID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `floors`
 --
 ALTER TABLE `floors`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `garage`
 --
 ALTER TABLE `garage`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `lightdetails`
 --
 ALTER TABLE `lightdetails`
-  MODIFY `lightID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `motiondetector`
@@ -309,13 +310,13 @@ ALTER TABLE `sensor`
 -- AUTO_INCREMENT for table `thermoschedule`
 --
 ALTER TABLE `thermoschedule`
-  MODIFY `ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `houseID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
