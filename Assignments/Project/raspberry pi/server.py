@@ -57,11 +57,12 @@ def wait_for_network():
             pass
 
 def Main():
-    host = "192.168.2.31"
+    hostname = socket.gethostname()
+    host = socket.gethostbyname(hostname)
     port = 12312
-    
+
     wait_for_network()
-        
+
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((host, port))
     print("socket binded to port", port)
