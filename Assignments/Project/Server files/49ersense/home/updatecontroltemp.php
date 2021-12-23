@@ -5,7 +5,7 @@ $houseID=$_POST["houseID"];
 $floorID=$_POST["floorID"];
 $controlTemp=$_POST["controlTemp"];
 
-$query="UPDATE thermoschedule SET tcurrent = $controlTemp, tcontrol = $controlTemp WHERE houseID ={$houseID} AND floorID = {$floorID}";
+$query="UPDATE thermoschedule SET tcontrol = $controlTemp WHERE houseID ={$houseID} AND floorID = {$floorID}";
 
 if(mysqli_query($conn,$query)){
     echo"Data updated";

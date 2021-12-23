@@ -37,7 +37,7 @@ def threaded(c):
                 # call floor 2
                 print('pi2')
                 client("192.168.2.32",12313,data)
-                
+
 
     # connection closed
     c.close()
@@ -48,16 +48,16 @@ def client(host_ip, port, data):
         print ("Socket successfully created")
     except socket.error as err:
         print ("socket creation failed with error %s" %(err))
- 
+
     # connecting to the pi
     s.connect((host_ip, port))
-    
+
     # sending the data to the pi
     s.send(data.encode('UTF-8'))
-    
+
     s.close()
-    
-    
+
+
 
 def Main():
     host = socket.gethostbyname(socket.gethostname())
