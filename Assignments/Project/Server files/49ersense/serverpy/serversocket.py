@@ -42,6 +42,7 @@ def threaded(c):
     # connection closed
     c.close()
 
+# Client socket to forward the information
 def client(host_ip, port, data):
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -59,13 +60,19 @@ def client(host_ip, port, data):
 
 
 
-def Main():
+def main():
+    # Start the videosave for the cameras
+    # Starting video save for camera 1
+    vid_thread = threading.Thread(target=videosave.save,daemon=True, args=(r'/opt/lampp/htdocs/49ersense/videos',r'http://192.168.1.198:8000/save_feed'))
+    rm_thread = threading.Thread(target=videosave.remove_video,daemon=True, args=(r'/opt/lampp/htdocs/49ersense/videos',))
+
+    vid_thread.start()
+    rm_thread.start()
+
+    # Creating the server socket
     host = socket.gethostbyname(socket.gethostname())
     print(host)
 
-    # reverse a port on your computer
-    # in our case it is 12345 but it
-    # can be anything
     port = 10000
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((host, port))
@@ -90,4 +97,4 @@ def Main():
 
 
 if __name__ == '__main__':
-    Main()
+    main()
