@@ -1,9 +1,10 @@
 # import socket programming library
 import socket
-from simulations import garagesim
-from simulations import lightsim
-from simulations import locksim
-from simulations import tempsim
+import os
+import sys
+import requests
+
+from simulations.simulations import *
 
 # import thread module
 from _thread import *
@@ -13,11 +14,10 @@ print_lock = threading.Lock()
 
 # thread function
 def threaded(c):
-    data = b''
     while True:
 
         # data received from client
-        data = c.recv(2048)
+        data = c.recv(1024)
         if not data:
             print('Bye')
 
@@ -25,21 +25,44 @@ def threaded(c):
             print_lock.release()
             break
 
-        # data = data.decode('UTF-8')
-        data_list = (data.decode('utf8')).split(',')
+        data = data.decode('UTF-8').strip('\n')
+        print(data)
+        data_list = data.split(',')
         print(data_list)
+
+        # updating the database
+        if 'updateGarage' in data_list:
+            update_garage(data_list[1],data_list[3],data_list[2])
+        if 'updateHouse' in data_list:
+            update_house(data_list[1],data_list[2])
+        if 'updateLight' in data_list:
+            update_light(data_list[1],data_list[2],data_list[3],data_list[4],data_list[5])
+        if 'updateFanMode' in data_list:
+            update_fan(data_list[1],data_list[2],data_list[3])
+        if 'updateMode' in data_list:
+            update_mode(data_list[1],data_list[2],data_list[3])
+        if 'updateControlTemp' in data_list:
+            update_temperature(data_list[1],data_list[2],data_list[3])
+
 
     # connection closed
     c.close()
 
+def wait_for_network():
+    while True:
+        try:
+            r = requests.head(url='http://google.com/',timeout=3)
+            return
+        except requests.ConnectionError as e:
+            pass
 
 def Main():
-    host = "10.211.55.3"
+    hostname = socket.gethostname()
+    host = socket.gethostbyname(hostname)
+    port = 12312
 
-    # reverse a port on your computer
-    # in our case it is 12345 but it
-    # can be anything
-    port = 10004
+    wait_for_network()
+
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((host, port))
     print("socket binded to port", port)
@@ -48,7 +71,6 @@ def Main():
     s.listen(5)
     print("socket is listening")
 
-    # a forever loop until client wants to exit
     while True:
 
         # establish connection with client
